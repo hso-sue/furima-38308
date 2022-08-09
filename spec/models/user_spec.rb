@@ -78,12 +78,17 @@ RSpec.describe User, type: :model do
       it 'パスワードが英語のみでは登録できない' do
         @user.password = 'abcdef'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
+        expect(@user.errors.full_messages).to include("Password は半角英数字で設定してください")
       end
       it 'パスワードが数字のみでは登録できない' do
         @user.password = '123456'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
+        expect(@user.errors.full_messages).to include("Password は半角英数字で設定してください")
+      end
+      it 'パスワードに全角文字があると登録できない' do
+        @user.password = '12345あ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password は半角英数字で設定してください")
       end
       it "名字は全角（漢字・ひらがな・カタカナ）でなければ登録できない" do
         @user.last_name = "kana"
