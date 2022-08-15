@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_many :purchase_records
+- has_many :orders
 
 ## items テーブル
 
@@ -35,10 +35,10 @@
 ### Association
 
 - belongs_to :user
-- has_one :purchase_record
+- has_one :order
 
 
-## purchase_records テーブル(購入記録)
+## orders テーブル(購入記録)
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
@@ -49,9 +49,9 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :ship_info
+- has_one :shipinfo
 
-## ship_infos テーブル(発送先情報)
+## shipinfos テーブル(発送先情報)
 
 | Column           | Type       | Options                        |
 | -----------------| ---------- | ------------------------------ |
@@ -61,8 +61,8 @@
 | address          | string     | null: false                    |
 | building_name    | string     |                                |
 | telephone_number | string     | null: false                    |
-| purchase_record  | references | null: false, foreign_key: true |
+| order            | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :purchase_record
+- belongs_to :order
