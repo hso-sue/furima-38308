@@ -19,5 +19,5 @@ class Prefectures < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :shipinfo
+  has_many :shipinfos
 end
