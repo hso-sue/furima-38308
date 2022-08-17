@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.order('created_at DESC')
+
   end
 
   def new
@@ -23,7 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to action: :index unless @item.user.id == current_user.id
+    unless @item.user.id == current_user.id && @item.order == nil
+    redirect_to action: :index
+    end
   end
 
   def update

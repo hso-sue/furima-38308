@@ -1,7 +1,12 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @item = Item.find(params[:item_id])
     @order_shipinfo = OrderShipinfo.new
+    if @item.user.id == current_user.id
+      redirect_to root_path
+    end
   end
 
   def create
@@ -24,7 +29,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_ac55cc3baeba940efd160691"
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
       card: order_shipinfo_params[:token],
