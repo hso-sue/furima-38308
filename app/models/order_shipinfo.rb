@@ -4,16 +4,17 @@ class OrderShipinfo
 
   with_options presence: true do
     validates :user_id
-    validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)", allow_blank: true}
+    validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)', allow_blank: true }
     validates :city
     validates :address
-    validates :telephone_number, format: { with: /\A[0-9]{10,11}\z/, allow_blank: true}
-    validates :prefectures_id, numericality: {other_than: 1, message: "can't be blank",}
+    validates :telephone_number, format: { with: /\A[0-9]{10,11}\z/, allow_blank: true }
+    validates :prefectures_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :token, presence: true
   end
 
   def save
     order = Order.create(item_id: item_id, user_id: user_id)
-    Shipinfo.create(post_code: post_code, prefectures_id: prefectures_id, city: city, address: address, telephone_number: telephone_number, building_name: building_name, order_id: order.id)
+    Shipinfo.create(post_code: post_code, prefectures_id: prefectures_id, city: city, address: address,
+                    telephone_number: telephone_number, building_name: building_name, order_id: order.id)
   end
 end
